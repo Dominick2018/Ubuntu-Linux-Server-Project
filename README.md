@@ -1,6 +1,9 @@
 Full Stack Web Developer - Nanodegree Program - Item Catalog Project
 ==================================================================
 
+**# This project was updated to work on the AWS server for the 
+Ubuntu Linux Server Project using the Postgres database**
+
 Purpose
 -------
 
