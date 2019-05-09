@@ -5,15 +5,15 @@ it to host your web applications. You will secure your server from a number of
 attack vectors, install and configure a database server, and deploy one of your
 existing web applications onto it.
 
-Server Information
-------------------
+*Server Information*
+--------------------
 
 * IP address "'18.237.100.85'"
 * SSH port "'2200'"
 * URL "'http://ec2-18-237-100-85.us-west-2.compute.amazonaws.com/'"
 
-Software Packages Installed
----------------------------
+*Software Packages Installed*
+-----------------------------
 
 * apache2
 * libapache2-mod-wsgi
@@ -22,14 +22,14 @@ Software Packages Installed
 * Python 2.7
 * Flask
 
-Server Configuration Changes instructions
------------------------------------------
+*Server Configuration Changes instructions*
+-------------------------------------------
 
 1 - Ubuntu Linux Server instance on Amazon Lightsail
 ---------------------------------------------------
 
-*1a. Create the Amazon Web Server instance*
------------------------------------------------
+1a. Create the Amazon Web Server instance
+-----------------------------------------
 
 1. Go to the link "'http://developer.amazon.com'"
 2. Create an account and follow the prompts
@@ -42,7 +42,8 @@ Server Configuration Changes instructions
 5. Scroll down to the bottom
 6. Click on the "'Create instance'" button
 
-*1b. Log into the server using SSH*
+1b. Log into the server using SSH
+---------------------------------
 
 1. Go to "'https://aws.amazon.com/'"
 2. Login to your account
@@ -51,17 +52,17 @@ Server Configuration Changes instructions
 5. Click on the "'Connect using SSH'" button
 
 2 - Secure your server
-------------------
+----------------------
 
-*2a Update all currently installed packages*
------------------------------------------
+2a Update all currently installed packages
+------------------------------------------
 
 1. On the server issue the commands:
     > sudo apt-get update
     > sudo apt-get upgrade
 
-*2b Change the SSH port from 22 to 2200*
-----------------------------------------
+2b Change the SSH port from 22 to 2200
+--------------------------------------
 
 1. Update the to the Lightsail Management Console
 1a. Go to your lightsail management console on your instance
@@ -76,8 +77,8 @@ Server Configuration Changes instructions
 6. Restart the server to enable this change
 > sudo service restart sshd
 
-*2c Configure the Uncomplicated Firewall*
------------------------------------------
+2c Configure the Uncomplicated Firewall
+---------------------------------------
 
 1. Check firewall status
 > sudo ufw status
@@ -99,13 +100,13 @@ Server Configuration Changes instructions
 3 - Give grader access
 ----------------------
 
-*3a. Create a new user account named grader*
---------------------------------------------
+3a. Create a new user account named grader
+------------------------------------------
 
 > sudo adduser grader
 
-*3b. Give grader the permission to sudo*
-----------------------------------------
+3b. Give grader the permission to sudo
+--------------------------------------
 
 1. Go to '/etc/sudoers.d/' directory
 2. Edit the file
@@ -115,8 +116,8 @@ Server Configuration Changes instructions
 > "'grader ALL=(ALL) NOPASSWD:ALL'"
 5. Save the file
 
-*3c Create an SSH key pair for grader using the ssh-keygen tool*
-----------------------------------------------------------------
+3c Create an SSH key pair for grader using the ssh-keygen tool
+--------------------------------------------------------------
 
 1. On your local machine
 2. Create an SSH key pair for grader using the ssh-keygen tool
@@ -146,8 +147,8 @@ Server Configuration Changes instructions
 4 - Prepare to deploy your project
 ----------------------------------
 
-*4a. Configure the local timezone to UTC*
------------------------------------------
+4a. Configure the local timezone to UTC
+---------------------------------------
 
 1. Check if the server is setup up the the UTC timezone
 > date
@@ -161,8 +162,8 @@ Server Configuration Changes instructions
 5a. use the arrow keys to select "'UTC'"
 6. Press Enter
 
-*4b. Install Apache*
---------------------
+4b. Install Apache
+------------------
 
 1. Install Apache
 > sudo apt-get install apache2
@@ -170,8 +171,8 @@ Server Configuration Changes instructions
 3. Go to the URL "'18.237.100.85'"
 4. The Apache2 Ubuntu Default Page will be displayed
 
-*4c. Install Python mod_wsgi*
------------------------------
+4c. Install Python mod_wsgi
+---------------------------
 
 1. Install the mod_wsgi package
 > sudo apt-get install libapache2-mod-wsgi python-dev
@@ -183,13 +184,14 @@ Server Configuration Changes instructions
 5 - Install and configure PostgreSQL
 ------------------------------------
 
-*5a. Install PostgreSQL*
+5a. Install PostgreSQL
+----------------------
 
 1. Install PostgreSQL with the command
 > Run $ sudo apt-get install postgresql
 
-*5b. Do not allow remote connections*
--------------------------------------
+5b. Do not allow remote connections
+-----------------------------------
 
 1. Make sure PostgreSQL does not allow remote connections
 2. Go to the "'/etc/postgresql/9.5/main/'" directory
@@ -209,8 +211,8 @@ Server Configuration Changes instructions
     > "'# IPv6 local connections:'"
     > "'host    all             all             ::1/128               md5'"
 
-*5c. Create a new database catalog*
------------------------------------
+5c. Create a new database catalog
+---------------------------------
 
 1. Switch to PostgreSQL defualt user postgres
 > sudo su - postgres
@@ -233,8 +235,8 @@ Server Configuration Changes instructions
 10. Exit user postgres
 > exit
 
-*5d. Create new PostgreSQL user*
--------------------------------
+5d. Create new PostgreSQL user
+------------------------------
 
 1. Switch to PostgreSQL defualt user postgres
 > sudo su - postgres
@@ -266,8 +268,8 @@ Server Configuration Changes instructions
 7 - Deploy the Item Catalog project
 -----------------------------------
 
-*7a. Clone and setup your Item Catalog project from the Github repository*
---------------------------------------------------------------------------
+7a. Clone and setup your Item Catalog project from the Github repository
+------------------------------------------------------------------------
 
 1. Go to the "'/tmp'" directory
 2. Download the Item Catalog Project from Git.
@@ -286,8 +288,8 @@ Server Configuration Changes instructions
 9. Go to the line "'app.run(host='0.0.0.0', port=8000)'"
 10. Change the line to "'app.run()'"
 
-*7b. Install the necessary software to allow the Python program to run*
------------------------------------------------------------------------
+7b. Install the necessary software to allow the Python program to run
+---------------------------------------------------------------------
 
 > sudo apt-get install "'python2.7'"
 > sudo apt-get install "'python-setuptools'"
@@ -299,16 +301,16 @@ Server Configuration Changes instructions
 > sudo apt-get install "'postgresql'"
 > sudo easy_install "'sqlalchemy'"
 
-*7c. Get the domain name for the AWS server site*
--------------------------------------------------
+7c. Get the domain name for the AWS server site
+-----------------------------------------------
 
 1. Go to the link: "'https://mxtoolbox.com/ReverseLookup.aspx'"
 2. For the IP Address field, enter your public IP Address
 3. Press the "'Reverse Lookup'" button
 4. Make a note of your PUBLIC AWS SERVER DOMAIN NAME
 
-*7d. Setup the virtual host*
-----------------------------
+7d. Setup the virtual host
+--------------------------
 
 1. Create file that will be used for the virtual host
 > sudo touch "'/etc/apache2/sites-available/catalog.conf'"
@@ -333,16 +335,16 @@ Server Configuration Changes instructions
 >                CustomLog ${APACHE_LOG_DIR}/catalogaccess.log combined
 >        </VirtualHost>
 
-*7e. Enable the virtual host*
------------------------------
+7e. Enable the virtual host
+---------------------------
 
    1. Enable the virtual host
         > sudo a2ensite catalog
    2. Restart Apache
         > sudo service apache2 reload
 
-*7f. Configure .wsgi file*
---------------------------
+7f. Configure .wsgi file
+------------------------
 
 1. Create the wsgi file used by the catalog application
 > sudo touch "'/var/www/catalog/catalog/catalog.wsgi'"
@@ -359,8 +361,8 @@ Server Configuration Changes instructions
 3. Restart Apache to use the changes
 > sudo service apache2 reload
 
-*7g. Update the Item Catalog application to use the Postgres database*
-----------------------------------------------------------------------
+7g. Update the Item Catalog application to use the Postgres database
+--------------------------------------------------------------------
 
 1. Go to "'/var/www/catalog/catalog/'" directory
 2. Edit the "'models.py'" file
@@ -370,16 +372,16 @@ Server Configuration Changes instructions
 4. Change the line to
 > engine = create_engine('postgresql://catalog:mypass@localhost/catalog')
 
-*7h. Disable defualt Apache page*
----------------------------------
+7h. Disable defualt Apache page
+-------------------------------
 
 1. Run this command to disable the default Apage page
 > sudo a2dissite 000-defualt.conf
 2. Restart the Apache server
 > sudo service apache2 reload
 
-*7i. Create the database schema and populate the catalog database*
-------------------------------------------------------------------
+7i. Create the database schema and populate the catalog database
+----------------------------------------------------------------
 
 1. Run the command to create the database schema
 > sudo python "'models.py'"
@@ -388,8 +390,8 @@ Server Configuration Changes instructions
 3. Restart the Apache server to use the changes
 > sudo service apache2 reload
 
-*7j. Go to the browser and view the Item Catalog application*
--------------------------------------------------------------
+7j. Go to the browser and view the Item Catalog application
+-----------------------------------------------------------
 
 1. Open the browser
 2. Go to the URL "'http://ec2-18-237-100-85.us-west-2.compute.amazonaws.com/'"
