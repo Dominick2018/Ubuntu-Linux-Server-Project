@@ -199,17 +199,19 @@ existing web applications onto it.
 > sudo nano pg_hba.conf
 4. Check to make sure it looks like this:
 
-    > "'# Database administrative login by Unix domain socket'"
-    > "'local   all             postgres                              peer'"
-    >
-    > "'# TYPE  DATABASE        USER            ADDRESS               METHOD'"
-    >
-    > "'# "local" is for Unix domain socket connections only'"
-    > "'local   all             all                                   peer'"
-    > "'# IPv4 local connections:'"
-    > "'host    all             all             127.0.0.1/32          md5'"
-    > "'# IPv6 local connections:'"
-    > "'host    all             all             ::1/128               md5'"
+'''
+     "'# Database administrative login by Unix domain socket'"
+     "'local   all             postgres                              peer'"
+    
+     "'# TYPE  DATABASE        USER            ADDRESS               METHOD'"
+    
+     "'# "local" is for Unix domain socket connections only'"
+     "'local   all             all                                   peer'"
+     "'# IPv4 local connections:'"
+     "'host    all             all             127.0.0.1/32          md5'"
+     "'# IPv6 local connections:'"
+     "'host    all             all             ::1/128               md5'"
+'''
 
 5c. Create a new database catalog
 ---------------------------------
@@ -316,24 +318,26 @@ existing web applications onto it.
 > sudo touch "'/etc/apache2/sites-available/catalog.conf'"
 2. Enter these line into the file
 
-> <VirtualHost *:80>
->               ServerName x.x.x.x
->                ServerAdmin admin@x.x.x.x
->                ServerAlias {PUBLIC AWS SERVER DOMAIN NAME}
->                WSGIScriptAlias / /var/www/catalog/catalog/catalog.wsgi
->                <Directory /var/www/catalog/catalog/>
->                        Order allow,deny
->                        Allow from all
->                </Directory>
->                Alias /static /var/www/catalog/catalog/static
->                <Directory /var/www/catalog/catalog/static/>
->                        Order allow,deny
->                        Allow from all
->                </Directory>
->                ErrorLog ${APACHE_LOG_DIR}/catalogerror.log
->                LogLevel warn
->                CustomLog ${APACHE_LOG_DIR}/catalogaccess.log combined
->        </VirtualHost>
+'''
+ <VirtualHost *:80>
+               ServerName x.x.x.x
+                ServerAdmin admin@x.x.x.x
+                ServerAlias {PUBLIC AWS SERVER DOMAIN NAME}
+                WSGIScriptAlias / /var/www/catalog/catalog/catalog.wsgi
+                <Directory /var/www/catalog/catalog/>
+                        Order allow,deny
+                        Allow from all
+                </Directory>
+                Alias /static /var/www/catalog/catalog/static
+                <Directory /var/www/catalog/catalog/static/>
+                        Order allow,deny
+                        Allow from all
+                </Directory>
+                ErrorLog ${APACHE_LOG_DIR}/catalogerror.log
+                LogLevel warn
+                CustomLog ${APACHE_LOG_DIR}/catalogaccess.log combined
+        </VirtualHost>
+'''
 
 7e. Enable the virtual host
 ---------------------------
@@ -349,14 +353,15 @@ existing web applications onto it.
 1. Create the wsgi file used by the catalog application
 > sudo touch "'/var/www/catalog/catalog/catalog.wsgi'"
 2. Add the following to the file
-> "'#!/usr/bin/python'"
+
+> #!/usr/bin/python
 > import sys
 > import logging
 > logging.basicConfig(stream=sys.stderr)
 > sys.path.insert(0, "/var/www/catalog/catalog/")
 >
 > from catalog import app as application
-> application.secret_key = "'super_secret_key'"
+> application.secret_key = 'super_secret_key'
 
 3. Restart Apache to use the changes
 > sudo service apache2 reload
