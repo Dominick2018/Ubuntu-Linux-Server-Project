@@ -199,19 +199,13 @@ existing web applications onto it.
 > sudo nano pg_hba.conf
 4. Check to make sure it looks like this:
 
-'''
-     "'# Database administrative login by Unix domain socket'"
-     "'local   all             postgres                              peer'"
-    
-     "'# TYPE  DATABASE        USER            ADDRESS               METHOD'"
-    
-     "'# "local" is for Unix domain socket connections only'"
-     "'local   all             all                                   peer'"
-     "'# IPv4 local connections:'"
-     "'host    all             all             127.0.0.1/32          md5'"
-     "'# IPv6 local connections:'"
-     "'host    all             all             ::1/128               md5'"
-'''
+    >    # Database administrative login by Unix domain socket
+    >     local   all             postgres                              peer
+    >
+    >     # TYPE  DATABASE        USER            ADDRESS               METHOD
+    >
+    >     # "local" is for Unix domain socket connections only
+    >     local   all             all                                   peer
 
 5c. Create a new database catalog
 ---------------------------------
@@ -306,7 +300,7 @@ existing web applications onto it.
 7c. Get the domain name for the AWS server site
 -----------------------------------------------
 
-1. Go to the link: "'https://mxtoolbox.com/ReverseLookup.aspx'"
+1. Go to the link "'https://mxtoolbox.com/ReverseLookup.aspx'"
 2. For the IP Address field, enter your public IP Address
 3. Press the "'Reverse Lookup'" button
 4. Make a note of your PUBLIC AWS SERVER DOMAIN NAME
@@ -342,10 +336,10 @@ existing web applications onto it.
 7e. Enable the virtual host
 ---------------------------
 
-   1. Enable the virtual host
-        > sudo a2ensite catalog
-   2. Restart Apache
-        > sudo service apache2 reload
+1. Enable the virtual host
+> sudo a2ensite catalog
+2. Restart Apache
+> sudo service apache2 reload
 
 7f. Configure .wsgi file
 ------------------------
@@ -354,14 +348,14 @@ existing web applications onto it.
 > sudo touch "'/var/www/catalog/catalog/catalog.wsgi'"
 2. Add the following to the file
 
-> #!/usr/bin/python
-> import sys
-> import logging
-> logging.basicConfig(stream=sys.stderr)
-> sys.path.insert(0, "/var/www/catalog/catalog/")
+> "#!/usr/bin/python"
+>  "import sys"
+>  "import logging"
+>  "logging.basicConfig(stream=sys.stderr)"
+>  "sys.path.insert(0, "/var/www/catalog/catalog/")"
 >
-> from catalog import app as application
-> application.secret_key = 'super_secret_key'
+>  "from catalog import app as application"
+>  "application.secret_key = 'super_secret_key'"
 
 3. Restart Apache to use the changes
 > sudo service apache2 reload
